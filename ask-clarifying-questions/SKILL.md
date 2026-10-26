@@ -85,16 +85,42 @@ In that summary, say plainly that questions were cut short, and list each skippe
 
 ## 4. Summary, then wait
 
-When the gaps are closed (or the rounds or the user's patience have run out), do not start the work. Send a summary:
+When the gaps are closed (or the rounds or the user's patience have run out), do not start the work. Send a summary with these lettered sections, in this order:
 
-- **Your original ask** (their words, lightly tidied).
-- **What I now understand**: their answers folded in, as a few bullets, including how the "why" shapes the plan.
-- **Assumptions I'm making**: anything you chose a default for rather than asking, including skipped questions.
-- **Concerns**: see below.
-- **What I'll do first**, in a line or two.
-- **Worth saving**: only if some answers will last beyond this task; see below.
+- **A. Your original ask**: their words, lightly tidied. One item, or one per ask if there were several.
+- **B. What I now understand**: their answers folded in, including how the "why" shapes the plan.
+- **C. Assumptions I'm making**: anything you chose a default for rather than asking, including skipped questions.
+- **D. Concerns**: see below.
+- **E. What I'll do first**: one or two items.
+- **F. Worth saving**: only if some answers will last beyond this task; see below.
 
-Leave out any heading that would be empty. **Match the summary to the size of the task.** For something small (a typo, a one-line fix), the whole summary is two to four lines: what you'll change, any assumption, and the go-ahead question.
+**Format it so every item has a label the user can point at.** Each section is a bold lettered heading on its own line, and every item under it is numbered, starting from 1 in each section. That way the user can correct something by its label ("B2: it's 20 people, not 14") without quoting it back. One point per item; don't run several points together in one item.
+
+```
+**A. Your original ask**
+1. …
+
+**B. What I now understand**
+1. …
+2. …
+
+**C. Assumptions I'm making**
+1. …
+
+**D. Concerns**
+1. **High:** …
+2. **Medium:** …
+
+**E. What I'll do first**
+1. …
+
+**F. Worth saving**
+1. …
+```
+
+Keep the letters fixed so they mean the same thing in every summary: A to E always appear (write "1. None" under one that's empty), and F appears only when there's something to save. Since F is last, leaving it out never leaves a gap in the letters.
+
+**Match the summary to the size of the task.** For something small (a typo, a one-line fix), skip the lettered format: the whole summary is two to four lines saying what you'll change, any assumption, and the go-ahead question.
 
 ### Concerns
 
@@ -104,11 +130,11 @@ An assumption is a gap you filled with a default. A concern is different: a risk
 - **Medium**: worth knowing, but with a clear way to handle it.
 - **Negligible**: minor, listed for transparency.
 
-Write each concern as one line: what the concern is, why it matters, and what you'll do about it unless the user says otherwise (or what context would dissolve it). For example: *"High: the export runs on every page load; at your stated traffic that's ~40k API calls a day, past the free tier. Unless you say otherwise, I'll cache it and refresh once a day."*
+Number the concerns in one list, ordered High first, then Medium, then Negligible, with the severity in bold at the start of each item. Write each concern as one item: what the concern is, why it matters, and what you'll do about it unless the user says otherwise (or what context would dissolve it). For example: *"1. **High:** the export runs on every page load; at your stated traffic that's ~40k API calls a day, past the free tier. Unless you say otherwise, I'll cache it and refresh once a day."*
 
 Be honest, not exhaustive:
 - A concern must be about this task. General facts about the environment ("this folder isn't under version control") don't belong unless they make this task risky.
-- Don't invent concerns to fill a tier, and keep Negligible to a few items at most. If you have no concerns at all, say "Concerns: none" in one line (on a small task, just leave the heading out).
+- Don't invent concerns to fill a tier, and keep Negligible to a few items at most. If you have no concerns at all, write "1. None" under D (on a small task, just leave it out).
 - Aim for about five concerns in total at most. If you have more, merge related ones or drop the weakest; a long list hides the ones that matter.
 - Don't list something here that you're already offering under "Worth saving".
 - Never bury a High concern inside a Medium one to keep the summary tidy.
@@ -120,21 +146,21 @@ Some answers apply beyond this task: a standing preference ("always mobile-first
 - **You can edit files** (a code repo): offer to write them where the project keeps such things (`CLAUDE.md`, the PRD's decision log, a notes file), naming the exact file.
 - **You can't edit files** (claude.ai chats and Projects): offer to save them to memory if memory is available. Otherwise give the user a ready-to-paste line and say where to paste it: their Project instructions if they're in a Project, otherwise their custom instructions (personal preferences) or their own notes. Never offer to update a file you can't write to.
 
-Only offer for answers that really will hold beyond this task, and never save anything without a yes.
+Number each answer to save under F. Put the offer itself (where you'd save them, or where to paste them) as one unnumbered line after the list, so it doesn't read as another item. Only offer for answers that really will hold beyond this task, and never save anything without a yes.
 
 ### Ask for the go-ahead
 
 End with two lines:
 
 1. Ask whether to go ahead. If there are High concerns, ask the user to read those before they answer. Saying yes accepts your assumptions and what you said you'd do about each concern.
-2. Tell them that if anything is still unclear, especially a High concern, they can say "more questions" and you'll run another round. Leave this line out for a small task with no concerns, where it's just padding.
+2. Tell them they can correct anything by its label (for example "B2: …"), or say "more questions" and you'll run another round, especially if a High concern is unclear. Leave this line out for a small task with no concerns, where it's just padding.
 
 Only an explicit yes in reply to this summary counts as the go-ahead: "yes", "go ahead", "approved", "just go", or similar. A go-ahead given earlier in the conversation doesn't count, and neither does a "just go" said while you were still asking questions.
 
 ## 5. After the summary
 
 - **They approve**: do the work.
-- **They ask for changes**: update the summary and ask again. Don't open new questions unless the change creates a real new gap.
+- **They ask for changes** (often by label, like "B2: …" or "drop D3"): update the summary and ask again. Keep the same letters and numbering where you can, so their references still line up, and say which items changed. Don't open new questions unless the change creates a real new gap.
 - **They ask for more questions, or their reply leaves a High concern unclear**: start a fresh cycle of up to 3 rounds. Keep the original ask pinned, carry forward everything they've already answered so you never re-ask it, and end with a new summary.
 - **Nobody can answer** (you're running in the background, on a schedule, or as a subagent whose output no person will read before it's used): skip the question rounds, post the summary with your defaults as assumptions, and stop. Don't do the work. Open the summary with one line saying it ran unattended and nothing was changed, and end it by saying a person can approve the plan later. Leave out the "more questions" line, since nobody is there to ask.
 
@@ -186,22 +212,30 @@ How the theme gets chosen (system setting, a toggle, or both) wasn't asked. Ther
 
 **Summary**:
 
-> **Your original ask:** Add a dark mode to the app.
+> **A. Your original ask**
+> 1. Add a dark mode to the app.
 >
-> **What I now understand:**
-> - Dark mode ships in v1 on the app screens. Emails and PDF exports stay light.
-> - It's driven by support tickets about eye strain at night, so I'll put readability first: text contrast that meets accessibility guidelines, dark grey rather than pure black, and no bright white panels.
+> **B. What I now understand**
+> 1. Dark mode ships in v1, reversing the light-only decision.
+> 2. It covers the app screens only. Emails and PDF exports stay light.
+> 3. It's driven by support tickets about eye strain at night, so readability comes first: text contrast that meets accessibility guidelines, dark grey rather than pure black, and no bright white panels.
 >
-> **Assumptions:** the app follows the device's light/dark setting, with a toggle in settings that remembers the choice in the browser. Charts and photos stay as they are unless they become hard to read.
+> **C. Assumptions I'm making**
+> 1. The app follows the device's light/dark setting, with a toggle in settings to override it.
+> 2. The toggle's choice is remembered in the browser.
+> 3. Charts and photos stay as they are unless they become hard to read.
 >
-> **Concerns:**
-> - High: 14 components use hard-coded colours instead of `tokens.css`, so they'd stay light in dark mode. Unless you say otherwise, I'll move them into `tokens.css` first. That's an extra step before anything visibly changes.
-> - Medium: the logo PNG has a white background and would show as a white box. I'll use the SVG version in `assets/` instead.
-> - Negligible: some browsers flash the light theme for a moment on first load. I'll add the standard small script that prevents it.
+> **D. Concerns**
+> 1. **High:** 14 components use hard-coded colours instead of `tokens.css`, so they'd stay light in dark mode. Unless you say otherwise, I'll move them into `tokens.css` first. That's an extra step before anything visibly changes.
+> 2. **Medium:** the logo PNG has a white background and would show as a white box. I'll use the SVG version in `assets/` instead.
+> 3. **Negligible:** some browsers flash the light theme for a moment on first load. I'll add the standard small script that prevents it.
 >
-> **What I'll do first:** move those 14 components' colours into `tokens.css`, then add the dark values.
+> **E. What I'll do first**
+> 1. Move those 14 components' colours into `tokens.css`.
+> 2. Add the dark values and the toggle.
 >
-> **Worth saving:** "v1 includes dark mode, on app screens only." Want me to update the decision in `PRD.md` so it isn't read as light-only later?
+> **F. Worth saving**
+> 1. "v1 includes dark mode, on app screens only." Want me to update the decision in `PRD.md` so it isn't read as light-only later?
 >
-> Shall I go ahead? Please read the High concern first; saying yes accepts the plan for it.
-> If anything's still unclear, say "more questions" and I'll run another round.
+> Shall I go ahead? Please read D1 first; saying yes accepts the plan for it.
+> To change anything, point at it by its label (for example "C2: don't remember the choice"), or say "more questions" and I'll run another round.

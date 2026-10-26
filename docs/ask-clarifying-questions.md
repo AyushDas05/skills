@@ -11,12 +11,15 @@ Add `/ask-clarifying-questions` to the end of a prompt when you suspect you have
 1. **Pins your original ask** and restates it at the top of every round, so a long back-and-forth doesn't drift away from what you actually asked for.
 2. **Reads before it asks.** It checks your project's README, `CLAUDE.md` / `AGENTS.md`, PRD or notes (or a claude.ai Project's instructions and files, or memory) and never asks something that's already answered there. If your request clashes with a decision you've written down, it says so, naming the file and date.
 3. **Asks in short rounds:** at most 4 questions per round and 3 rounds. Every option says what it would mean for the work. It only marks an option "(Recommended)" when it has a real reason, and says so when it's guessing. Before each new round it checks whether it could go ahead on sensible defaults, and if so it stops asking.
-4. **Sends a summary**, sized to the task:
-   - what it now understands, including how your "why" shapes the plan
-   - the assumptions it made instead of asking
-   - its **concerns**, ranked **High / Medium / Negligible**, each with what it will do about it unless you say otherwise
-   - what it will do first
-   - answers worth saving for next time (to a file, to memory, or as a line for you to paste, depending on where it's running)
+4. **Sends a summary** in lettered sections with numbered items, so you can correct anything by pointing at it ("B2: it's 20 people, not 14"):
+   - **A.** your original ask
+   - **B.** what it now understands, including how your "why" shapes the plan
+   - **C.** the assumptions it made instead of asking
+   - **D.** its **concerns**, ranked **High / Medium / Negligible**, each with what it will do about it unless you say otherwise
+   - **E.** what it will do first
+   - **F.** answers worth saving for next time (to a file, to memory, or as a line for you to paste, depending on where it's running)
+
+   Small tasks get a two-to-four-line summary instead.
 5. **Waits for an explicit yes** before doing anything.
 
 ## What you can say
@@ -26,7 +29,7 @@ Add `/ask-clarifying-questions` to the end of a prompt when you suspect you have
 | "skip", "enough questions", "just go" (while it's asking) | It stops asking and goes straight to the summary. It never starts the work from this. |
 | "yes", "go ahead", "approved", "just go" (after the summary) | It starts the work. |
 | "more questions" (after the summary) | It runs another set of up to 3 rounds and never re-asks anything you've already answered. |
-| Changes to the summary | It updates the summary and asks again. |
+| A correction by label, like "B2: it's 20 people" or "drop D3" | It updates the summary, keeps the labels lined up, says what changed, and asks again. |
 
 ## Example
 
@@ -44,16 +47,22 @@ Add `/ask-clarifying-questions` to the end of a prompt when you suspect you have
 > 2. **What prompted this?** *User requests* · *Eye strain or accessibility* · *Brand refresh*
 > 3. **Which parts go dark?** *App screens only (Recommended)* · *Everything, including emails and PDFs*
 
-After you answer, the summary ends like this:
+After you answer, the summary ends like this (sections A to C cover the ask, what it understood and its assumptions):
 
-> **Concerns:**
-> - High: 14 components use hard-coded colours instead of `tokens.css`, so they'd stay light in dark mode. Unless you say otherwise, I'll move them into `tokens.css` first.
-> - Medium: the logo PNG has a white background and would show as a white box. I'll use the SVG version instead.
-> - Negligible: some browsers flash the light theme for a moment on first load. I'll add the standard small script that prevents it.
+> **D. Concerns**
+> 1. **High:** 14 components use hard-coded colours instead of `tokens.css`, so they'd stay light in dark mode. Unless you say otherwise, I'll move them into `tokens.css` first.
+> 2. **Medium:** the logo PNG has a white background and would show as a white box. I'll use the SVG version instead.
+> 3. **Negligible:** some browsers flash the light theme for a moment on first load. I'll add the standard small script that prevents it.
 >
-> **Worth saving:** "v1 includes dark mode, on app screens only." Want me to update the decision in `PRD.md`?
+> **E. What I'll do first**
+> 1. Move those 14 components' colours into `tokens.css`.
+> 2. Add the dark values and the toggle.
 >
-> Shall I go ahead? Please read the High concern first; saying yes accepts the plan for it.
+> **F. Worth saving**
+> 1. "v1 includes dark mode, on app screens only." Want me to update the decision in `PRD.md`?
+>
+> Shall I go ahead? Please read D1 first; saying yes accepts the plan for it.
+> To change anything, point at it by its label (for example "C2: don't remember the choice"), or say "more questions" and I'll run another round.
 
 The full example, including a small-task version, is at the end of [`SKILL.md`](../ask-clarifying-questions/SKILL.md).
 
